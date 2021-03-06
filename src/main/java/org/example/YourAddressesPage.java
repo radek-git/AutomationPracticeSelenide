@@ -17,7 +17,7 @@ public class YourAddressesPage extends MyAccountPage {
 
     public YourAddressesPage clickSaveButton() {
         clickWhenVisibleInMillis(SAVE_BUTTON, 10000);
-        return new YourAddressesPage();
+        return this;
     }
 
 
@@ -28,6 +28,14 @@ public class YourAddressesPage extends MyAccountPage {
     public MyAddressesPage clickBackToYourAddressesButton() {
         clickWhenVisibleInMillis(BACK_TO_YOUR_ADDRESSES_BUTTON, 2000);
         return new MyAddressesPage();
+    }
+
+    public YourAddressesPage scrollToElement() {
+        String xpath = "//button[@id='submitAddress']";
+        SelenideElement element = $x(xpath);
+
+        executeJavaScript("arguments[0].scrollIntoView()", element);
+        return this;
     }
 
 

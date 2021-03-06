@@ -1,9 +1,12 @@
 package org.example;
 
+import com.codeborne.selenide.WebDriverRunner;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import static com.codeborne.selenide.Selenide.screenshot;
 import static org.example.BasePage.*;
+import static org.example.ScreenshotUtils.capture;
 import static org.testng.Assert.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -24,14 +27,28 @@ public class CreateAccountPageTest extends BaseTest {
 
     @Test(priority = 0)
     public void shouldCompletePersonalInformation() {
-        String username = homePage.openMe()
-                .clickSignInButton()
-                .inputEmailAddress()
-                .clickCreateAccountButton()
-                .selectRandomTitle()
-                .inputData()
-                .clickRegisterButton()
-                .getUsername();
+
+        homePage = homePage.openMe();
+        capture(WebDriverRunner.getWebDriver(), "05_Create_Account_Home_Page");
+        AuthenticationPage authenticationPage = homePage.clickSignInButton();
+        capture(WebDriverRunner.getWebDriver(), "05_Create_Account_Authentication_Page_Empty");
+        authenticationPage = authenticationPage.inputEmailAddress();
+        capture(WebDriverRunner.getWebDriver(), "05_Create_Account_Authentication_Page_Email_Filled");
+        CreateAccountPage createAccountPage = authenticationPage.clickCreateAccountButton();
+        capture(WebDriverRunner.getWebDriver(), "05_Create_Account_Page_Empty");
+        createAccountPage = createAccountPage.selectRandomTitle(); //zmien na konkretny
+        capture(WebDriverRunner.getWebDriver(), "05_Create_Account_Page_Title_Selected");
+        createAccountPage = createAccountPage.inputData();
+        createAccountPage.scrollToTop();
+        capture(WebDriverRunner.getWebDriver(), "05_Create_Account_Page_Data_Filled_1");
+        createAccountPage.scrollToNextPage();
+        capture(WebDriverRunner.getWebDriver(), "05_Create_Account_Page_Data_Filled_2");
+        createAccountPage.scrollToNextPage();
+        capture(WebDriverRunner.getWebDriver(), "05_Create_Account_Page_Data_Filled_3");
+
+        myAccountPage = createAccountPage.clickRegisterButton();
+        capture(WebDriverRunner.getWebDriver(), "05_Create_Account_My_Account_Page");
+        String username = myAccountPage.getUsername();
 
         assertEquals(username, firstName+" "+ lastName);
     }

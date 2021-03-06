@@ -1,11 +1,12 @@
 package org.example;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 
 import java.time.Duration;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
 public class CreateAccountPage extends BasePage {
 
@@ -95,6 +96,27 @@ public class CreateAccountPage extends BasePage {
         inputTextInField(MOBILE_PHONE_INPUT, cellPhoneNo);
         inputTextInField(ASSIGN_ADDRESS_INPUT, faker.name().bloodGroup());
         return new CreateAccountPage();
+    }
+
+
+    public CreateAccountPage scrollToTop() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String xpath = "//html";
+        SelenideElement element = $x(xpath);
+
+        executeJavaScript("arguments[0].scrollTo(0,0);", element);
+        return this;
+    }
+
+    public CreateAccountPage scrollToNextPage() {
+        SelenideElement html = $("html");
+        int height = html.getSize().height;
+        executeJavaScript("arguments[0].scrollIntoView += arguments[1]", html, height);
+        return this;
     }
 
 
