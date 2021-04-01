@@ -95,7 +95,8 @@ public class CreateAccountPage extends BasePage {
         inputTextInField(PHONE_INPUT, phoneNo);
         inputTextInField(MOBILE_PHONE_INPUT, cellPhoneNo);
         inputTextInField(ASSIGN_ADDRESS_INPUT, faker.name().bloodGroup());
-        return new CreateAccountPage();
+
+        return this;
     }
 
 

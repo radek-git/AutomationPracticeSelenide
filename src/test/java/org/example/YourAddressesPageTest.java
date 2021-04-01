@@ -1,9 +1,6 @@
 package org.example;
 
-import com.codeborne.selenide.Configuration;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -20,7 +17,7 @@ public class YourAddressesPageTest extends BaseTest {
 
         homePage.openMe()
                 .clickSignInButton()
-                .inputEmailAddress()
+                .inputEmailAddressForNewUser()
                 .clickCreateAccountButton()
                 .selectRandomTitle()
                 .inputData()

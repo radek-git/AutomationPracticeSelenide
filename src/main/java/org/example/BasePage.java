@@ -1,8 +1,9 @@
 package org.example;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.*;
 import com.github.javafaker.Faker;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.time.Duration;
 import java.util.concurrent.ThreadLocalRandom;
@@ -22,6 +23,7 @@ public abstract class BasePage {
     static String zipCode = faker.numerify("#####");
     static String phoneNo = faker.numerify("###-###-####");
     static String cellPhoneNo = faker.phoneNumber().cellPhone();
+    public static final String PAGE_TITLE = "//div[@id='center_column']/h1/span[@class='cat-name']";
 
 
 
@@ -47,6 +49,32 @@ public abstract class BasePage {
 
 
 
+    public String getPageTitle() {
+        return $x(PAGE_TITLE).shouldBe(Condition.visible, Duration.ofMillis(5000)).getText().replace(" ", "");
+    }
+
+
+    public void waitForElement(String xpath, long seconds) {
+        $x(xpath).shouldBe(Condition.visible, Duration.ofSeconds(seconds));
+    }
+
+    public String getTextFromElement(String xpath) {
+        return $x(xpath).shouldBe(Condition.visible, Duration.ofSeconds(15)).getText();
+    }
+
+    public void moveMouseToElement(String xpath) {
+        WebElement element = WebDriverRunner.getWebDriver().findElement(By.xpath(xpath));
+        actions().moveToElement(element).build().perform();
+    }
+
+    public boolean isElementVisible(String xpath, long seconds) {
+        return $x(xpath).shouldBe(Condition.visible, Duration.ofSeconds(seconds)).isDisplayed();
+    }
+
+
+    public void switchToIframe(String xpath) {
+        switchTo().frame($x(xpath));
+    }
 
 
 

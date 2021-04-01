@@ -32,7 +32,7 @@ public class CreateAccountPageTest extends BaseTest {
         capture(WebDriverRunner.getWebDriver(), "05_Create_Account_Home_Page");
         AuthenticationPage authenticationPage = homePage.clickSignInButton();
         capture(WebDriverRunner.getWebDriver(), "05_Create_Account_Authentication_Page_Empty");
-        authenticationPage = authenticationPage.inputEmailAddress();
+        authenticationPage = authenticationPage.inputEmailAddressForNewUser();
         capture(WebDriverRunner.getWebDriver(), "05_Create_Account_Authentication_Page_Email_Filled");
         CreateAccountPage createAccountPage = authenticationPage.clickCreateAccountButton();
         capture(WebDriverRunner.getWebDriver(), "05_Create_Account_Page_Empty");

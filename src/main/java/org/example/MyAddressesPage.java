@@ -44,13 +44,13 @@ public class MyAddressesPage extends MyAccountPage {
     public MyAddressesPage clickDeleteButtonAndConfirm() {
         clickWhenVisibleInMillis(DELETE_ADDRESS_BUTTON, 20000);
         switchTo().alert().accept();
-        return new MyAddressesPage();
+        return this;
     }
 
     public MyAddressesPage clickDeleteAndDismiss() {
         clickWhenVisibleInMillis(DELETE_ADDRESS_BUTTON, 20000);
         Selenide.switchTo().alert().dismiss();
-        return new MyAddressesPage();
+        return this;
     }
 
     public String getWarningMessageText() {
